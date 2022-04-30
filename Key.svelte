@@ -2,26 +2,23 @@
     export let noteNum;
     export let keyWidth = 56;
     export let pressed = false;
-
     import { createEventDispatcher } from "svelte";
-    const dispatch = createEventDispatcher();
 
+    const dispatch = createEventDispatcher();
     let isNatural = ![1, 3, 6, 8, 10].includes(noteNum % 12);
     let bias = 0;
-
     // the accidental keys are not perfectly in center
     if (!isNatural) {
         if ([1, 6].includes(noteNum % 12)) bias = -keyWidth / 12;
         else if ([3, 10].includes(noteNum % 12)) bias = keyWidth / 12;
     }
-
-    function keyPressed() {
+    export function keyPressed(key) {
         if (pressed) return;
         dispatch("noteon", noteNum);
+        console.log(noteNum, key);
         pressed = true;
     }
-
-    function keyReleased() {
+    export function keyReleased(key) {
         if (!pressed) return;
         dispatch("noteoff", noteNum);
         pressed = false;
@@ -51,31 +48,32 @@
         flex-shrink: 0;
         width: var(--width);
         min-width: min-content;
-
         border-radius: 0px 0px calc(var(--width) / 8) calc(var(--width) / 8);
         -webkit-user-drag: none;
     }
-
     .accidental {
         margin: 0px calc(var(--width) / -2) 0px calc(var(--width) / -2);
         z-index: 2;
-
         height: 60%;
         background: black;
-
         box-shadow: inset white 0px 0px 2px 0px;
     }
-
     .natural {
         height: 100%;
         box-shadow: inset black 0px 0px 2px 0px;
     }
-
     .accidental.pressed {
-        background: hsl(0 0% 30%);
+        background: teal;
     }
-
+    .accidental:not(.pressed) {
+        background: black;
+        transition: background-color 1.0s ease;
+    }
     .natural.pressed {
-        background: hsl(0 0% 90%);
+        background: cyan;
+    }
+    .natural:not(.pressed) {
+        background: white;
+        transition: background-color 1.0s ease;
     }
 </style>

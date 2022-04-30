@@ -1,6 +1,6 @@
 # Svelte Piano
 
-This is a minimal piano interface built with Svelte.
+Fork of danferns/svelte-piano. This extends his minimal piano interface built  with Svelte, now including the [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API) to control the keyboard.
 
 ![Screenshot of piano](./screenshot.png)
 
