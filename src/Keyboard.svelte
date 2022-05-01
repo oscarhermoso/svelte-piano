@@ -85,12 +85,18 @@
     });
 
     let keyBindings = {};
+
+    let innerWidth: number;
+    $: keyWidth = Math.min((innerWidth - 36 / octaves) / (octaves * 8), 56);
 </script>
+
+<svelte:window bind:innerWidth={innerWidth}/>
 
 <div class="keyboard">
     <div>
         {#each keys as note}
             <Key noteNum={note}
+                {keyWidth}
                 on:noteon={({detail}) => noteOn(detail)}
                 on:noteoff={({detail}) => noteOff(detail)}
                 pressed={keysPressed.includes(note)}

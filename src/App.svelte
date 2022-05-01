@@ -1,26 +1,28 @@
 <script lang="ts">
     import Keyboard from "./Keyboard.svelte";
-
-    let octaves = 3;
-    let verbose = false;
+    import Settings from "./Settings.svelte";
+    import { octaves, verbose } from "./stores";
 </script>
+
+
 
 <svelte:head>
     <title>Svelte Piano</title>
 </svelte:head>
 
-<label>Octaves:
-    <select bind:value={octaves}>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-    </select>
-</label>
+<div class="nav">
+    <h1><a href="https://github.com/oscarhermoso/svelte-piano">Svelte Piano</a></h1>
+    <Settings/>
+</div>
 
-<label>Verbose:
-    <input bind:checked={verbose} type="checkbox">
-</label>
-
-{#key octaves}
-    <Keyboard {octaves} {verbose}/>
+{#key $octaves}
+    <Keyboard octaves={$octaves} verbose={$verbose}/>
 {/key}
+
+<style>
+    .nav {
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>

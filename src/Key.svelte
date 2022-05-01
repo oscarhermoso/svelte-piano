@@ -15,7 +15,6 @@
     export function keyPressed(key) {
         if (pressed) return;
         dispatch("noteon", noteNum);
-        console.log(noteNum, key);
         pressed = true;
     }
     export function keyReleased(key) {
